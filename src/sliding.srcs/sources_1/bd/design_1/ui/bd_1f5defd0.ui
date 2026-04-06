@@ -1,0 +1,58 @@
+{
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"1.0",
+   "Default View_TopLeft":"29,-171",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.0r6  2020-01-29 bk=1.5227 VDI=41 GEI=36 GUI=JA:10.0 non-TLS
+#  -string -flagsOSRD
+preplace port DDR -pg 1 -lvl 4 -x 1370 -y 0 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 4 -x 1370 -y 20 -defaultsOSRD
+preplace port port-id_adc_clk_p_i -pg 1 -lvl 0 -x -70 -y 350 -defaultsOSRD
+preplace port port-id_adc_clk_n_i -pg 1 -lvl 0 -x -70 -y 370 -defaultsOSRD
+preplace port port-id_adc_cdcs_o -pg 1 -lvl 4 -x 1370 -y 300 -defaultsOSRD
+preplace portBus adc_data_1_i -pg 1 -lvl 0 -x -70 -y 390 -defaultsOSRD
+preplace portBus adc_data_2_i -pg 1 -lvl 0 -x -70 -y 410 -defaultsOSRD
+preplace portBus led_o -pg 1 -lvl 4 -x 1370 -y 100 -defaultsOSRD
+preplace portBus exp_p_io -pg 1 -lvl 4 -x 1370 -y 370 -defaultsOSRD
+preplace portBus exp_n_io -pg 1 -lvl 4 -x 1370 -y 440 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 1 -x 220 -y 0 -defaultsOSRD
+preplace inst proc_sys_reset_0 -pg 1 -lvl 2 -x 680 -y 110 -defaultsOSRD
+preplace inst axis_red_pitaya_adc_0 -pg 1 -lvl 1 -x 220 -y 380 -defaultsOSRD
+preplace inst axi_gpio_0 -pg 1 -lvl 1 -x 220 -y 180 -defaultsOSRD
+preplace inst ps7_0_axi_periph -pg 1 -lvl 3 -x 1170 -y -120 -defaultsOSRD
+preplace inst xlconcat_0 -pg 1 -lvl 3 -x 1170 -y 160 -defaultsOSRD
+preplace inst axi_gpio_1 -pg 1 -lvl 1 -x 220 -y 560 -defaultsOSRD
+preplace inst sliding_ctrl_0 -pg 1 -lvl 2 -x 680 -y 400 -defaultsOSRD
+preplace netloc adc_clk_n_i_1 1 0 1 N 370
+preplace netloc adc_clk_p_i_1 1 0 1 N 350
+preplace netloc adc_data_1_i_1 1 0 1 N 390
+preplace netloc adc_data_2_i_1 1 0 1 N 410
+preplace netloc axi_gpio_1_gpio2_io_o 1 1 1 470 420n
+preplace netloc axi_gpio_1_gpio_io_o 1 1 1 480 440n
+preplace netloc axis_red_pitaya_adc_0_adc_clk 1 1 1 470 380n
+preplace netloc axis_red_pitaya_adc_0_adc_csn 1 1 3 420J 540 900 300 N
+preplace netloc axis_red_pitaya_adc_0_m_axis_tdata 1 1 1 440 340n
+preplace netloc axis_red_pitaya_adc_0_m_axis_tvalid 1 1 2 450 210 880J
+preplace netloc proc_sys_reset_0_peripheral_aresetn 1 0 3 -40 280 480 220 870
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 3 -50 -100 460 -50 860
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 1 1 430 40n
+preplace netloc sliding_ctrl_0_sliding_out 1 2 2 870 370 N
+preplace netloc sliding_ctrl_0_sliding_out_n 1 2 2 890 440 N
+preplace netloc xlconcat_0_dout 1 3 1 1340 100n
+preplace netloc axi_gpio_0_gpio_io_o 1 1 1 460 170n
+preplace netloc axi_gpio_0_gpio2_io_o 1 1 1 430 210n
+preplace netloc axis_red_pitaya_adc_0_M_AXIS 1 1 1 420 320n
+preplace netloc processing_system7_0_DDR 1 1 3 NJ -40 850 20 1340
+preplace netloc processing_system7_0_FIXED_IO 1 1 3 NJ -20 890 30 1350
+preplace netloc processing_system7_0_M_AXI_GP0 1 1 2 430J -60 850
+preplace netloc ps7_0_axi_periph_M00_AXI 1 0 4 -30 270 420J 260 850J 290 1330
+preplace netloc ps7_0_axi_periph_M01_AXI 1 0 4 -30 650 N 650 N 650 1320
+levelinfo -pg 1 -70 220 680 1170 1370
+pagesize -pg 1 -db -bbox -sgen -250 -260 1510 860
+"
+}
+{
+   "da_axi4_cnt":"1",
+   "da_clkrst_cnt":"1",
+   "da_ps7_cnt":"1"
+}
