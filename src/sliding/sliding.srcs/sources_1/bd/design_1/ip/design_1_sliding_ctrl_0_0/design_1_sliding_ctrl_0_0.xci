@@ -58,7 +58,9 @@
         "low_trigger": [ { "direction": "in", "size_left": "15", "size_right": "0" } ],
         "high_trigger": [ { "direction": "in", "size_left": "15", "size_right": "0" } ],
         "sliding_out": [ { "direction": "out" } ],
-        "sliding_out_n": [ { "direction": "out" } ]
+        "sliding_out_n": [ { "direction": "out" } ],
+        "sliding_pwm": [ { "direction": "in", "size_left": "1", "size_right": "0" } ],
+        "PWM_duty": [ { "direction": "in", "size_left": "11", "size_right": "0" } ]
       },
       "interfaces": {
         "stream_i": {

@@ -47,7 +47,11 @@ entity sliding_ctrl is
            low_trigger      : in std_logic_vector(15 downto 0);
            high_trigger     : in std_logic_vector(15 downto 0);
            sliding_out      : out std_logic;
-           sliding_out_n    : out std_logic
+           sliding_out_n    : out std_logic;
+
+           -- PWM
+           sliding_pwm      : in std_logic_vector(1 downto 0);
+           PWM_duty         : in std_logic_vector(11 downto 0)
 
            );
 end sliding_ctrl;
@@ -61,6 +65,9 @@ architecture Behavioral of sliding_ctrl is
     --signal adc_ch1      : signed(ADC_BITS - 1 downto 0) := (others => '0');
     --signal adc_ch2      : signed(ADC_BITS - 1 downto 0) := (others => '0');
     signal sliding      : std_logic := '0';
+
+    -- Contador de 12 bits para el PWM (f ~ 30 kHz)
+    signal pwm_counter  : unsigned(11 downto 0) := (others => '0');
     
 begin
 
@@ -101,7 +108,7 @@ begin
     stream_o_tdata <= stream_i_tdata;
 
     -- AXI handshake bypass when running STREAM
-    stream_o_tvalid <= stream_i_tvalid when stream_state = RUNNING else '0';    
+    stream_o_tvalid <= stream_i_tvalid when stream_state = RUNNING else '0';
     stream_i_tready <= stream_o_tready when stream_state = RUNNING else '0';
 
     -- AXI tlast control
@@ -111,24 +118,49 @@ begin
 -- SLIDING control
     process(clk) --begin
         variable adc1_sample : signed(15 downto 0) := (others => '0');
-        --variable adc2_sample : signed(15 downto 0) := (others => '0');
+        variable adc2_sample : signed(15 downto 0) := (others => '0');
     begin
         if(rising_edge(clk)) then
-            -- ADC reading latch when tvalid
-            if(stream_i_tvalid = '1') then
-                adc1_sample := signed(stream_i_tdata(15 downto 0));
-                --adc2_sample := signed(stream_i_tdata(31 downto 16));
+            -- 3 modos de salida
+            case sliding_pwm is
+                when "00" =>    -- PWM
+                    pwm_counter <= pwm_counter + 1;
 
-                --adc_ch1 <= adc1_sample;
-                --adc_ch2 <= adc2_sample;
+                    if(pwm_counter < unsigned(PWM_duty)) then
+                        sliding <= '1';
+                    elsif(pwm_counter > unsigned(PWM_duty)) then
+                        sliding <= '0';
+                    end if;
 
-                if(adc1_sample > signed(high_trigger)) then
-                    sliding <= '1';
-                elsif(adc1_sample < signed(low_trigger)) then
+
+                when "01" =>    -- SLIDING CH1
+                    if(stream_i_tvalid = '1') then
+                        adc1_sample := signed(stream_i_tdata(15 downto 0));
+                        --adc2_sample := signed(stream_i_tdata(31 downto 16));
+
+                        if(adc1_sample > signed(high_trigger)) then
+                            sliding <= '1';
+                        elsif(adc1_sample < signed(low_trigger)) then
+                            sliding <= '0';
+                        end if;
+                    end if;
+
+                when "10" =>    -- SLIDING CH2
+                    if(stream_i_tvalid = '1') then
+                        adc2_sample := signed(stream_i_tdata(31 downto 16));
+
+                        if(adc2_sample > signed(high_trigger)) then
+                            sliding <= '1';
+                        elsif(adc2_sample < signed(low_trigger)) then
+                            sliding <= '0';
+                        end if;
+                    end if;
+
+                when "11" =>
                     sliding <= '0';
-                end if;
 
-            end if;
+            end case;
+
 
         end if;
     end process;
